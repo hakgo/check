@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% for meeting in object_list %}
+        <h1>{{ meeting }}</h1>
+        <p>{{ meeting.meeting_date }}</p><hr>
+        <a href="{% url 'check' pk=meeting.id %}" class="btn btn-success">Check!</a>
+        {% for attendance in meeting.meetingattendance_set.all %}
+            <p>{{ attendance.user.username }}<br>{{ attendance.check_date }}</p>
+            <p>{% if attendance.check_date < meeting.meeting_date %}NOT {% endif %}LATE!</p>
+        {% endfor %}
+    {% endfor %}
+
+
+{% endblock %}
