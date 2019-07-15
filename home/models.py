@@ -18,10 +18,10 @@ class MeetingAttendance(models.Model):
     check_date = models.DateTimeField(auto_now_add=True)
 
     def not_late(self):
-        return self.check_date <= meeting.meeting_date
+        return self.check_date <= self.meeting.meeting_date
 
     def __str__(self):
         return self.user.username
 
     def get_absolute_url(self):
-        return reverse('list')
+        return reverse('detail', args=[str(self.meeting.id)])

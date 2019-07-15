@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %} by {{ user.username }}{% endblock %}
+
+{% block content %}
+    <h2>{{ user.username }}</h2>
+    {% for attendance in object_list %}
+        {% if attendance.user == user %}
+            {% if attendance.not_late %}
+                <a href="{% url 'detail' pk=attendance.meeting.id %}" class="btn btn-success">SAFE</a>
+            {% else %}
+                <a href="{% url 'detail' pk=attendance.meeting.id %}" class="btn btn-danger">LATE</a>
+            {% endif %}
+            {{ attendance.meeting }}
+        {% endif %}
+    {% endfor %}
+
+{% endblock %}

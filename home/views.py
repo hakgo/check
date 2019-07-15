@@ -9,19 +9,13 @@ def list_view(request):
     object_list = Meeting.objects.all()
     return render(request, 'home/list.html', {'object_list':object_list})
 
-
-class MeetingListView(ListView):
-    model = Meeting
-    template_name = 'home/list.html'
-
-    def not_late(self, idx):
-        meeting = self.request.objects.get(pk=idx)
-        return meeting.meetingattendance_set.check_date <= meeting.meeting_date
+def detail_view(request, pk):
+    meeting = Meeting.objects.get(pk=pk)
+    return render(request, 'home/detail.html', {'meeting':meeting})
 
 class CheckView(CreateView):
     model = MeetingAttendance
     fields = []
-    success_url = reverse_lazy('home')
     template_name = 'home/check.html'
 
     def form_valid(self, form):
@@ -35,6 +29,6 @@ class MeetingCreateView(CreateView):
     template_name = 'home/create.html'
     success_url = reverse_lazy('home')
 
-class MeetingDetailView(ListView):
+class UserListView(ListView):
     model = MeetingAttendance
-    template_name = 'home/detail.html'
+    template_name = 'home/user_list.html'
