@@ -15,7 +15,7 @@ class Meeting(models.Model):
 class MeetingAttendance(models.Model):
     meeting = models.ForeignKey(Meeting, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    check_date = models.DateTimeField(auto_now=True)
+    check_date = models.DateTimeField(auto_now_add=True)
 
     def not_late(self):
         return self.check_date <= meeting.meeting_date

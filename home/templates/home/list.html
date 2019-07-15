@@ -3,10 +3,18 @@
 {% block content %}
     {% for meeting in object_list %}
         <h1>{{ meeting }}</h1>
-        <p>{{ meeting.meeting_date }}</p><hr>
+        <p>
+            {{ meeting.meeting_date.year }}/{{ meeting.meeting_date.month }}/{{ meeting.meeting_date.day }}
+            {{ meeting.meeting_date.hour }} : {{ meeting.meeting_date.minute }} : {{ meeting.meeting_date.second }}
+        </p><hr>
         <a href="{% url 'check' pk=meeting.id %}" class="btn btn-success">Check!</a>
         {% for attendance in meeting.meetingattendance_set.all %}
-            <p>{{ attendance.user.username }}<br>{{ attendance.check_date }}</p>
+            <p>{{ attendance.user.username }}<br>
+                {{ attendance.check_date.year }}/{{ attendance.check_date.month }}/{{ attendance.check_date.day }}
+                {{ attendance.check_date.hour }} : {{ attendance.check_date.minute }} : {{ attendance.check_date.second }}
+            </p>
+
+
             <p>{% if attendance.check_date < meeting.meeting_date %}NOT {% endif %}LATE!</p>
         {% endfor %}
     {% endfor %}
